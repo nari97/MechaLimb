@@ -1,0 +1,145 @@
+<html>
+<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<!-- Popper JS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script>
+		function f1()
+		{
+			var a = document.getElementById("move");
+			console.log(a.value)
+			var b = document.getElementById("selected");
+			$.ajax({
+				url:"http://localhost:5000/test.py",
+				data: {move : a.value},
+				success : function(response){
+					console.log("Data Sent");
+					}
+				});
+			switch(a.value)
+			{
+				case '1' : b.innerHTML = "<text>Selected Thumb Movement</text>";
+						   break;
+				case '2' : b.innerHTML = "Selected Index Movement";
+						   break;
+				case '3' : b.innerHTML = "Selected Middle Finger Movement";
+						   break;
+				case '4' : b.innerHTML = "Selected Ring Finger Movement";
+						   break;
+				case '5' : b.innerHTML = "Selected Little Finger Movement";
+						   break;
+			}
+			
+			document.getElementById("executing").style.visibility = "visible";
+		}
+		function f2()
+		{
+			$.ajax({
+				url:"http://localhost:5000/test.py",
+				data: {move : '6'},
+				success : function(response){
+					console.log("Data Sent");
+					}
+				});
+				document.getElementById("executing").style.visibility = "hidden";
+				document.getElementById("selected").style.visibility = "hidden";
+		}
+	</script>
+	<style>
+		#executing {
+					visibility : hidden;
+				}
+		.carousel-inner img {
+      				width: 100%;
+      				height: 50%;
+		}
+		.beg {
+			background-color: black;
+		}
+		
+	</style>
+</head>
+<body class="beg">
+	<div class="container">
+	<h1 class="display-3 text-light text-center">Prosthetic Wrist using sEMG Signals</h1>
+	<br>
+	
+	<div class="col-*-4"></div>
+	<div class="col-*-4">
+			<div id="demo" class="carousel slide" data-ride="carousel">
+
+					<!-- Indicators -->
+					<ul class="carousel-indicators">
+					  <li data-target="#demo" data-slide-to="0" class="active"></li>
+					  <li data-target="#demo" data-slide-to="1"></li>
+					  <li data-target="#demo" data-slide-to="2"></li>
+					  <li data-target="#demo" data-slide-to="3"></li>
+					  <li data-target="#demo" data-slide-to="4"></li>
+					</ul>
+				  
+					<!-- The slideshow -->
+					<div class="carousel-inner">
+					  <div class="carousel-item active">
+						<img src="thumb.png" alt="Los Angeles">
+					  </div>
+					  <div class="carousel-item">
+						<img src="index.png" alt="Chicago">
+					  </div>
+					  <div class="carousel-item">
+						<img src="middle.png" alt="New York">
+					  </div>
+					  <div class="carousel-item">
+							<img src="ring.png" alt="New York">
+						  </div>
+						<div class="carousel-item">
+							<img src="little.png" alt="New York">
+						</div>
+					</div>
+				  
+					<!-- Left and right controls -->
+					<a class="carousel-control-prev" href="#demo" data-slide="prev">
+					  <span class="carousel-control-prev-icon"></span>
+					</a>
+					<a class="carousel-control-next" href="#demo" data-slide="next">
+					  <span class="carousel-control-next-icon"></span>
+					</a>
+				  
+				  </div>
+	<br><br>
+	<div class="form-group">
+	<label class="text-light">Choose Finger Movement</label>
+	<select id="move" class="form-control">
+		<option value="1">Thumb</option>
+		<option value="2">Index</option>
+		<option value="3">Middle</option>
+		<option value="4">Ring</option>
+		<option value="5">Little</option>
+	</select>
+	</div>
+	<div>
+	<button onClick = "f1()" class="btn btn-primary btn-block">Confirm</button>
+	</div>
+	<br>
+	<div>
+
+	<h3 id="selected" class="display-4 text-center text-success"></h3>
+	<h4 id="executing" class="display-5 text-center text-info">Executing, please wait for movement</h4>
+
+	</div>
+	<br>
+	<div>
+		<button onClick = "f2()" class="btn btn-warning btn-block">Reset Fingers</button>
+	</div>
+	</div>
+	<div class="col-sm-4"></div>
+	</div>
+</body>
+
+</html>
